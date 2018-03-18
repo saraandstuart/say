@@ -1,17 +1,56 @@
 package com.shannoncode.codecoop;
 
 import com.google.common.base.Strings;
-import com.shannoncode.codecoop.misc.*;
+import com.shannoncode.codecoop.interpreter.*;
 import com.shannoncode.codecoop.parser.Parser;
 import com.shannoncode.codecoop.validator.Validator;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Stuart Shannon
  */
 class Say
 {
+    private static Map<Long, String> digits = new HashMap<>();
+    private static Map<Long, String> teens = new HashMap<>();
+    private static Map<Long, String> tens = new HashMap<>();
+
+    static
+    {
+        digits.put(1L, "one");
+        digits.put(2L, "two");
+        digits.put(3L, "three");
+        digits.put(4L, "four");
+        digits.put(5L, "five");
+        digits.put(6L, "six");
+        digits.put(7L, "seven");
+        digits.put(8L, "eight");
+        digits.put(9L, "nine");
+        digits.put(10L, "ten");
+
+        teens.put(11L, "eleven");
+        teens.put(12L, "twelve");
+        teens.put(13L, "thirteen");
+        teens.put(14L, "fourteen");
+        teens.put(15L, "fifteen");
+        teens.put(16L, "sixteen");
+        teens.put(17L, "seventeen");
+        teens.put(18L, "eighteen");
+        teens.put(19L, "nineteen");
+
+        tens.put(2L, "twenty");
+        tens.put(3L, "thirty");
+        tens.put(4L, "forty");
+        tens.put(5L, "fifty");
+        tens.put(6L, "sixty");
+        tens.put(7L, "seventy");
+        tens.put(8L, "eighty");
+        tens.put(9L, "ninety");
+    }
+
     private Validator validator;
 
     private Parser tenParser;
@@ -44,13 +83,13 @@ class Say
         this.millionParser = millionParser;
         this.billionParser = billionParser;
 
-        this.digit = new Digit();
-        this.teen = new Teen();
-        this.ten = new Ten();
+        this.digit = new SmallNumber(digits);
+        this.teen = new SmallNumber(teens);
+        this.ten = new SmallNumber(tens);
         this.hundred = new Hundred();
-        this.thousand = new OneThousandAndLarger("thousand");
-        this.million = new OneThousandAndLarger("million");
-        this.billion = new OneThousandAndLarger("billion");
+        this.thousand = new LargeNumber("thousand");
+        this.million = new LargeNumber("million");
+        this.billion = new LargeNumber("billion");
     }
 
     String inEnglish(long n)
@@ -120,11 +159,11 @@ class Say
         return group1Interpreted + group2Interpreted;
     }
 
-    private class OneThousandAndLarger implements Expression
+    private class LargeNumber implements Expression
     {
         private String scaleWord;
 
-        OneThousandAndLarger(String scaleWord)
+        LargeNumber(String scaleWord)
         {
             this.scaleWord = scaleWord;
         }

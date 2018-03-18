@@ -1,4 +1,4 @@
-package com.shannoncode.codecoop.misc;
+package com.shannoncode.codecoop.interpreter;
 
 /**
  * @author Stuart Shannon

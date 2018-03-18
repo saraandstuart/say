@@ -1,4 +1,4 @@
-package com.shannoncode.codecoop.misc;
+package com.shannoncode.codecoop.interpreter;
 
 import java.util.HashMap;
 import java.util.Map;
