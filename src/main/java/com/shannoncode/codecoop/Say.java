@@ -14,41 +14,46 @@ import java.util.Map;
  */
 class Say
 {
-    private static Map<Long, String> digits = new HashMap<>();
-    private static Map<Long, String> teens = new HashMap<>();
-    private static Map<Long, String> tens = new HashMap<>();
+    private static final String HUNDRED = "hundred";
+    private static final String THOUSAND = "thousand";
+    private static final String MILLION = "million";
+    private static final String BILLION = "billion";
+
+    private static Map<Long, String> DIGITS = new HashMap<>();
+    private static Map<Long, String> TEENS = new HashMap<>();
+    private static Map<Long, String> TENS = new HashMap<>();
 
     static
     {
-        digits.put(1L, "one");
-        digits.put(2L, "two");
-        digits.put(3L, "three");
-        digits.put(4L, "four");
-        digits.put(5L, "five");
-        digits.put(6L, "six");
-        digits.put(7L, "seven");
-        digits.put(8L, "eight");
-        digits.put(9L, "nine");
-        digits.put(10L, "ten");
+        DIGITS.put(1L, "one");
+        DIGITS.put(2L, "two");
+        DIGITS.put(3L, "three");
+        DIGITS.put(4L, "four");
+        DIGITS.put(5L, "five");
+        DIGITS.put(6L, "six");
+        DIGITS.put(7L, "seven");
+        DIGITS.put(8L, "eight");
+        DIGITS.put(9L, "nine");
+        DIGITS.put(10L, "ten");
 
-        teens.put(11L, "eleven");
-        teens.put(12L, "twelve");
-        teens.put(13L, "thirteen");
-        teens.put(14L, "fourteen");
-        teens.put(15L, "fifteen");
-        teens.put(16L, "sixteen");
-        teens.put(17L, "seventeen");
-        teens.put(18L, "eighteen");
-        teens.put(19L, "nineteen");
+        TEENS.put(11L, "eleven");
+        TEENS.put(12L, "twelve");
+        TEENS.put(13L, "thirteen");
+        TEENS.put(14L, "fourteen");
+        TEENS.put(15L, "fifteen");
+        TEENS.put(16L, "sixteen");
+        TEENS.put(17L, "seventeen");
+        TEENS.put(18L, "eighteen");
+        TEENS.put(19L, "nineteen");
 
-        tens.put(2L, "twenty");
-        tens.put(3L, "thirty");
-        tens.put(4L, "forty");
-        tens.put(5L, "fifty");
-        tens.put(6L, "sixty");
-        tens.put(7L, "seventy");
-        tens.put(8L, "eighty");
-        tens.put(9L, "ninety");
+        TENS.put(2L, "twenty");
+        TENS.put(3L, "thirty");
+        TENS.put(4L, "forty");
+        TENS.put(5L, "fifty");
+        TENS.put(6L, "sixty");
+        TENS.put(7L, "seventy");
+        TENS.put(8L, "eighty");
+        TENS.put(9L, "ninety");
     }
 
     private Validator validator;
@@ -70,13 +75,14 @@ class Say
 
         this.parser = parser;
 
-        this.digit = new SmallNumber(digits);
-        this.teen = new SmallNumber(teens);
-        this.ten = new SmallNumber(tens);
-        this.hundred = new Hundred();
-        this.thousand = new LargeNumber("thousand");
-        this.million = new LargeNumber("million");
-        this.billion = new LargeNumber("billion");
+        this.digit = new SmallNumber(DIGITS);
+        this.teen = new SmallNumber(TEENS);
+        this.ten = new SmallNumber(TENS);
+
+        this.hundred = new LargeNumber(HUNDRED);
+        this.thousand = new LargeNumber(THOUSAND);
+        this.million = new LargeNumber(MILLION);
+        this.billion = new LargeNumber(BILLION);
     }
 
     String inEnglish(long n)
