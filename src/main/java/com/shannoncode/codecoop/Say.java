@@ -20,13 +20,13 @@ class Say
     private Parser millionParser;
     private Parser billionParser;
 
-    private Digit digit;
-    private Teen teen;
-    private Ten ten;
-    private Hundred hundred;
-    private Thousand thousand;
-    private Million million;
-    private Billion billion;
+    private Expression digit;
+    private Expression teen;
+    private Expression ten;
+    private Expression hundred;
+    private Expression thousand;
+    private Expression million;
+    private Expression billion;
 
 
     Say(Validator validator,
@@ -48,9 +48,9 @@ class Say
         this.teen = new Teen();
         this.ten = new Ten();
         this.hundred = new Hundred();
-        this.thousand = new Thousand();
-        this.million = new Million();
-        this.billion = new Billion();
+        this.thousand = new OneThousandAndLarger("thousand");
+        this.million = new OneThousandAndLarger("million");
+        this.billion = new OneThousandAndLarger("billion");
     }
 
     String inEnglish(long n)
@@ -102,14 +102,14 @@ class Say
     private String template(long n,
                             String separator,
                             Parser parser,
-                            Expression simple)
+                            Expression expression)
     {
         List<Long> groups = parser.parse(n);
 
         long group1 = groups.get(0);
         long group2 = groups.get(1);
 
-        String group1Interpreted = simple.interpret(group1);
+        String group1Interpreted = expression.interpret(group1);
         String group2Interpreted = inEnglishNonZero(group2);
 
         if (!Strings.isNullOrEmpty(group2Interpreted))
@@ -120,28 +120,19 @@ class Say
         return group1Interpreted + group2Interpreted;
     }
 
-
-    private class Thousand implements Expression
+    private class OneThousandAndLarger implements Expression
     {
+        private String scaleWord;
+
+        OneThousandAndLarger(String scaleWord)
+        {
+            this.scaleWord = scaleWord;
+        }
+
         public String interpret(long number)
         {
-            return inEnglishNonZero(number) + " " + "thousand";
+            return inEnglishNonZero(number) + " " + scaleWord;
         }
     }
 
-    private class Million implements Expression
-    {
-        public String interpret(long number)
-        {
-            return inEnglishNonZero(number) + " " + "million";
-        }
-    }
-
-    private class Billion implements Expression
-    {
-        public String interpret(long number)
-        {
-            return inEnglishNonZero(number) + " " + "billion";
-        }
-    }
 }
