@@ -28,18 +28,9 @@ public class SayTest
     {
         Validator validator = new MinMaxValidator(0L, 999_999_999_999L);
 
-        Parser tenParser = new ModulusParser(10L, validator);
-        Parser hundredParser = new ModulusParser(100L, validator);
-        Parser thousandParser = new ModulusParser(1_000L, validator);
-        Parser millionParser = new ModulusParser(1_000_000L, validator);
-        Parser billionParser = new ModulusParser(1_000_000_000L, validator);
+        Parser parser = new ModulusParser(validator);
 
-        say = new Say(validator,
-                      tenParser,
-                      hundredParser,
-                      thousandParser,
-                      millionParser,
-                      billionParser);
+        say = new Say(validator, parser);
     }
 
     @Test

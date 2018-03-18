@@ -13,28 +13,26 @@ import java.util.List;
  */
 public class ModulusParser implements Parser
 {
-    private long modulus;
     private Validator validator;
 
-    public ModulusParser(long modulus, Validator validator)
+    public ModulusParser(Validator validator)
     {
-        this.modulus = modulus;
         this.validator = validator;
     }
 
-    public List<Long> parse(long input)
+    public List<Long> parse(long input, long modulus)
     {
         validator.validate(input);
 
         List<Long> result = new ArrayList<>();
 
-        parse(result, input);
+        parse(result, input, modulus);
         Collections.reverse(result);
 
         return result;
     }
 
-    private void parse(List<Long> result, long input)
+    private void parse(List<Long> result, long input, long modulus)
     {
         long remainder = input % modulus;
         long quotient = input / modulus;
@@ -43,7 +41,7 @@ public class ModulusParser implements Parser
 
         if (quotient != 0)
         {
-            parse(result, quotient);
+            parse(result, quotient, modulus);
         }
     }
 }

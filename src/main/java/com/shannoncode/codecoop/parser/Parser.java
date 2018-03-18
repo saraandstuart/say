@@ -7,5 +7,5 @@ import java.util.List;
  */
 public interface Parser
 {
-    List<Long> parse(long input);
+    List<Long> parse(long input, long modulus);
 }

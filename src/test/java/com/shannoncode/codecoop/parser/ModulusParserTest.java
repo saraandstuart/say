@@ -33,10 +33,10 @@ public class ModulusParserTest
     public void parse(long modulus, long input, List<Long> expected)
     {
         //given
-        Parser parser = new ModulusParser(modulus, validator);
+        Parser parser = new ModulusParser(validator);
 
         //when
-        List<Long> actual = parser.parse(input);
+        List<Long> actual = parser.parse(input, modulus);
 
         //then
         assertThat(actual, is(expected));

@@ -53,11 +53,7 @@ class Say
 
     private Validator validator;
 
-    private Parser tenParser;
-    private Parser hundredParser;
-    private Parser thousandParser;
-    private Parser millionParser;
-    private Parser billionParser;
+    private Parser parser;
 
     private Expression digit;
     private Expression teen;
@@ -68,20 +64,11 @@ class Say
     private Expression billion;
 
 
-    Say(Validator validator,
-        Parser tenParser,
-        Parser hundredParser,
-        Parser thousandParser,
-        Parser millionParser,
-        Parser billionParser)
+    Say(Validator validator, Parser parser)
     {
         this.validator = validator;
 
-        this.tenParser = tenParser;
-        this.hundredParser = hundredParser;
-        this.thousandParser = thousandParser;
-        this.millionParser = millionParser;
-        this.billionParser = billionParser;
+        this.parser = parser;
 
         this.digit = new SmallNumber(digits);
         this.teen = new SmallNumber(teens);
@@ -116,23 +103,23 @@ class Say
         }
         else if (n < 100L)
         {
-            return template(n, "-", tenParser, ten);
+            return template(n, "-", 10L, ten);
         }
         else if (n < 1_000L)
         {
-            return template(n, " ", hundredParser, hundred);
+            return template(n, " ", 100L, hundred);
         }
         else if (n < 1_000_000L)
         {
-            return template(n, " ", thousandParser, thousand);
+            return template(n, " ", 1_000L, thousand);
         }
         else if (n < 1_000_000_000L)
         {
-            return template(n, " ", millionParser, million);
+            return template(n, " ", 1_000_000L, million);
         }
         else if (n < 1_000_000_000_000L)
         {
-            return template(n, " ", billionParser, billion);
+            return template(n, " ", 1_000_000_000L, billion);
         }
 
         return null;
@@ -140,10 +127,10 @@ class Say
 
     private String template(long n,
                             String separator,
-                            Parser parser,
+                            long modulus,
                             Expression expression)
     {
-        List<Long> groups = parser.parse(n);
+        List<Long> groups = parser.parse(n, modulus);
 
         long group1 = groups.get(0);
         long group2 = groups.get(1);
