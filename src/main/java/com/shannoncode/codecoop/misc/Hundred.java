@@ -5,18 +5,18 @@ package com.shannoncode.codecoop.misc;
  */
 public class Hundred implements Expression
 {
-    private Expression simple;
+    private Expression expression;
 
     public Hundred() {
         this(new Digit());
     }
 
-    public Hundred(Expression simple) {
-        this.simple = simple;
+    public Hundred(Expression expression) {
+        this.expression = expression;
     }
 
     public String interpret(long number)
     {
-        return simple.interpret(number) + " " + "hundred";
+        return expression.interpret(number) + " " + "hundred";
     }
 }

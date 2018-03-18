@@ -27,6 +27,7 @@ public class SayTest
     public void setup()
     {
         Validator validator = new MinMaxValidator(0L, 999_999_999_999L);
+
         Parser tenParser = new ModulusParser(10L, validator);
         Parser hundredParser = new ModulusParser(100L, validator);
         Parser thousandParser = new ModulusParser(1_000L, validator);
