@@ -73,6 +73,7 @@ public class ModulusParserTest
                 new Object[] { 10L, 2_034L, Arrays.asList(2L, 0L, 3L, 4L)},
                 new Object[] { 10L, 234L, Arrays.asList(2L, 3L, 4L)},
                 new Object[] { 10L, 34L, Arrays.asList(3L, 4L)},
+                new Object[] { 10L, 16L, Arrays.asList(1L, 6L)},
                 new Object[] { 10L, 4L, Collections.singletonList(4L)}
         };
     }

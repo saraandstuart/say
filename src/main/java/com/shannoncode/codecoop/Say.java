@@ -101,11 +101,11 @@ class Say
     {
         if (n < 11L)
         {
-            return digit.interpret(n);
+            return template(n, "", 10L, digit);
         }
         else if (n < 20L)
         {
-            return teen.interpret(n);
+            return template(n, "", 100L, teen);
         }
         else if (n < 100L)
         {
@@ -139,17 +139,23 @@ class Say
         List<Long> groups = parser.parse(n, modulus);
 
         long group1 = groups.get(0);
-        long group2 = groups.get(1);
-
         String group1Interpreted = expression.interpret(group1);
-        String group2Interpreted = inEnglishNonZero(group2);
 
-        if (!Strings.isNullOrEmpty(group2Interpreted))
+        StringBuilder result = new StringBuilder(group1Interpreted);
+
+        if (groups.size() == 2)
         {
-            group2Interpreted = separator + group2Interpreted;
+            long group2 = groups.get(1);
+            String group2Interpreted = inEnglishNonZero(group2);
+
+            if (!Strings.isNullOrEmpty(group2Interpreted))
+            {
+                result.append(separator);
+                result.append(group2Interpreted);
+            }
         }
 
-        return group1Interpreted + group2Interpreted;
+        return result.toString();
     }
 
     private class LargeNumber implements Expression
