@@ -94,44 +94,46 @@ class Say
             return "zero";
         }
 
-        return inEnglishNonZero(n);
+        return choose(n);
     }
 
-    private String inEnglishNonZero(long n)
+    private String choose(long n)
     {
         if (n < 11L)
         {
-            return template(n, "", 10L, digit);
+            return evaluate(n, "", 10L, digit);
+//            return DIGITS.getOrDefault(n, "");
         }
         else if (n < 20L)
         {
-            return template(n, "", 100L, teen);
+            return evaluate(n, "", 100L, teen);
+//            return TEENS.getOrDefault(n, "");
         }
         else if (n < 100L)
         {
-            return template(n, "-", 10L, ten);
+            return evaluate(n, "-", 10L, ten);
         }
         else if (n < 1_000L)
         {
-            return template(n, " ", 100L, hundred);
+            return evaluate(n, " ", 100L, hundred);
         }
         else if (n < 1_000_000L)
         {
-            return template(n, " ", 1_000L, thousand);
+            return evaluate(n, " ", 1_000L, thousand);
         }
         else if (n < 1_000_000_000L)
         {
-            return template(n, " ", 1_000_000L, million);
+            return evaluate(n, " ", 1_000_000L, million);
         }
         else if (n < 1_000_000_000_000L)
         {
-            return template(n, " ", 1_000_000_000L, billion);
+            return evaluate(n, " ", 1_000_000_000L, billion);
         }
 
         return null;
     }
 
-    private String template(long n,
+    private String evaluate(long n,
                             String separator,
                             long modulus,
                             Expression expression)
@@ -146,7 +148,7 @@ class Say
         if (groups.size() == 2)
         {
             long group2 = groups.get(1);
-            String group2Interpreted = inEnglishNonZero(group2);
+            String group2Interpreted = choose(group2);
 
             if (!Strings.isNullOrEmpty(group2Interpreted))
             {
@@ -169,7 +171,7 @@ class Say
 
         public String interpret(long number)
         {
-            return inEnglishNonZero(number) + " " + scaleWord;
+            return choose(number) + " " + scaleWord;
         }
     }
 
