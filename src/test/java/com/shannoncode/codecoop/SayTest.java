@@ -15,11 +15,14 @@ import org.junit.runner.RunWith;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * @author Stuart Shannon
+ */
 @RunWith(JUnitParamsRunner.class)
 public class SayTest
 {
     @Rule
-    public ExpectedException thrown= ExpectedException.none();
+    public ExpectedException thrown = ExpectedException.none();
 
     private Say say;
 
